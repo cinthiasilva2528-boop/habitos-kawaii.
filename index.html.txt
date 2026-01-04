@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Jueguito de Hábitos</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#C4C3E0">
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --beige:#F5F5DC;
+  --lav:#C4C3E0;
+  --pink:#FADADD;
+  --mint:#DFF5EA;
+  --text:#555;
+}
+
+body{
+  margin:0;
+  font-family:'Quicksand',sans-serif;
+  background:linear-gradient(180deg,var(--beige),var(--mint));
+  color:var(--text);
+}
+
+h1{
+  text-align:center;
+  margin:20px 0;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
+}
+
+.section{
+  background:white;
+  border-radius:22px;
+  padding:15px;
+  margin-bottom:20px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  animation:fadeIn .6s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.task{
+  margin-bottom:10px;
+}
+
+.task label{
+  display:flex;
+  align-items:center;
+  cursor:pointer;
+}
+
+.task input{
+  margin-right:10px;
+  transform:scale(1.4);
+}
+
+.desc{
+  margin-left:32px;
+  font-size:.85rem;
+  background:var(--pink);
+  padding:6px 10px;
+  border-radius:12px;
+  display:none;
+}
+
+.task input:checked + span{
+  text-decoration:line-through;
+  opacity:.6;
+}
+
+.task label:hover + .desc{
+  display:block;
+}
+
+.progress-bar{
+  background:#eee;
+  border-radius:20px;
+  overflow:hidden;
+  height:26px;
+  margin-top:10px;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:repeating-linear-gradient(
+    45deg,
+    var(--lav),
+    var(--lav) 12px,
+    #ebeafd 12px,
+    #ebeafd 24px
+  );
+  transition:width .4s ease;
+}
+
+.reward{
+  text-align:center;
+  padding:20px;
+  border-radius:18px;
+  font-size:1.1rem;
+}
+
+.locked{opacity:.4}
+.unlocked{background:var(--pink);animation:pulse 1.2s infinite}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.03)}
+  100%{transform:scale(1)}
+}
+
+.reset-btn{
+  position:fixed;
+  top:10px;
+  right:10px;
+  border:none;
+  border-radius:50%;
+  background:white;
+  padding:10px;
+  font-size:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+</style>
+</head>
+
+<body>
+
+<button class="reset-btn" id="reset">💔</button>
+
+<h1>🌸 Mi Jueguito de Hábitos 🌸</h1>
+
+<div class="container">
+
+<!-- RUTINA DIARIA -->
+<div class="section">
+<h2>☀️ Rutina Diaria</h2>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Rutina Matutina + Postura</span></label>
+<div class="desc">Levantarse, ordenar, aseo y ejercicios para corregir la joroba.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Limpieza Ligera del Hogar</span></label>
+<div class="desc">Barrer, hacer camas, manejar ropa y ordenar superficies.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Aprender 10 Términos Médicos</span></label>
+<div class="desc">Bloque de estudio enfocado en vocabulario clínico.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Aprender 10 Palabras en Inglés</span></label>
+<div class="desc">Estudio diario de inglés.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Leer Guías de Conducción</span></label>
+<div class="desc">Lectura teórica para licencia.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Cocinar Almuerzo</span></label>
+<div class="desc">Preparar comida del día.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Lavar Losa Inmediato</span></label>
+<div class="desc">Hábito anti-flojera: nada de losa acumulada.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Ducha Diaria</span></label>
+<div class="desc">Debe realizarse antes de las 17:00.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Estudio Fuerte (Fisio / Química)</span></label>
+<div class="desc">Bloque de máxima concentración.</div>
+</div>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progress"></div>
+</div>
+</div>
+
+<!-- RUTINA NOCTURNA -->
+<div class="section">
+<h2>🌙 Rutina Nocturna</h2>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Once Familiar</span></label>
+<div class="desc">Compartir tiempo con la familia.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Lavar y Despejar Cocina</span></label>
+<div class="desc">Dejar la cocina impecable, cero losa.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Repaso Fisio / Química</span></label>
+<div class="desc">Videos y refuerzo tipo “al fin entendí”.</div>
+</div>
+
+<div class="task">
+<label><input type="checkbox" class="check"> <span>Cepillado Nocturno</span></label>
+<div class="desc">Último cepillado del día.</div>
+</div>
+</div>
+
+<div class="section reward locked" id="reward">
+🎬 RECOMPENSA DE DORAMAS<br>
+Se desbloquea al 80%
+</div>
+
+</div>
+
+<script>
+const checks=document.querySelectorAll('.check');
+const progress=document.getElementById('progress');
+const reward=document.getElementById('reward');
+const reset=document.getElementById('reset');
+
+const KEY='tasks',DATE='date';
+
+function today(){return new Date().toISOString().split('T')[0];}
+
+function load(){
+ if(localStorage.getItem(DATE)!==today()){
+   localStorage.setItem(KEY,JSON.stringify([]));
+   localStorage.setItem(DATE,today());
+ }
+ const data=JSON.parse(localStorage.getItem(KEY))||[];
+ checks.forEach((c,i)=>c.checked=data[i]||false);
+ update();
+}
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify([...checks].map(c=>c.checked)));
+}
+
+function update(){
+ const total=checks.length;
+ const done=[...checks].filter(c=>c.checked).length;
+ const percent=Math.round(done/total*100);
+ progress.style.width=percent+'%';
+
+ if(percent>=80){
+   reward.classList.remove('locked');
+   reward.classList.add('unlocked');
+   reward.innerHTML='🎉 DORAMAS DESBLOQUEADOS 💖';
+ }else{
+   reward.classList.add('locked');
+   reward.classList.remove('unlocked');
+   reward.innerHTML='🎬 RECOMPENSA DE DORAMAS<br>80% requerido';
+ }
+ save();
+}
+
+reset.onclick=()=>{
+ if(confirm('¿Reiniciar progreso del día?')){
+   checks.forEach(c=>c.checked=false);
+   update();
+ }
+};
+
+checks.forEach(c=>c.onchange=update);
+load();
+
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
+</body>
+</html>
