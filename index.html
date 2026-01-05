@@ -1,85 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mi Jueguito de Hábitos</title>
 
 <style>
 :root{
-  --rosa:#f8c8d8;
-  --rosa-claro:#fde8ef;
-  --rosa-card:#fff3f7;
-  --texto:#6b4b57;
+  --rosa:#f9c5d1;
+  --rosa2:#fde7ee;
+  --card:#fff5f8;
+  --texto:#6a4a57;
 }
 
 body{
   margin:0;
-  font-family: 'Quicksand', system-ui, sans-serif;
+  font-family:'Quicksand', system-ui, sans-serif;
   background:var(--rosa);
   color:var(--texto);
 }
 
 .app{
-  max-width:420px;
+  max-width:430px;
   margin:auto;
   padding:16px;
 }
 
 header{
   text-align:center;
-  font-size:1.5em;
+  font-size:1.6em;
   font-weight:700;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .card{
-  background:var(--rosa-card);
+  background:var(--card);
   border-radius:20px;
   padding:16px;
-  margin-bottom:16px;
-  box-shadow:0 6px 12px rgba(0,0,0,.05);
+  margin-bottom:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
 }
 
 h2{
-  margin:0 0 12px;
+  margin:0 0 10px;
   font-size:1.1em;
 }
 
 .task{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:6px 0;
-}
-
-.task label{
-  flex:1;
-  cursor:pointer;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:8px;
 }
 
 .task input{
-  display:none;
+  transform:scale(1.2);
 }
 
-.check{
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  border:2px solid var(--rosa);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.task span{
+  font-size:.9em;
 }
 
-input:checked + .check{
-  background:#ff9fc3;
+.task small{
+  display:block;
+  font-size:.75em;
+  opacity:.8;
 }
 
 .progress{
   margin-top:10px;
-  height:16px;
-  background:#f5b6cb;
+  height:14px;
+  background:#f3a6bb;
   border-radius:20px;
   overflow:hidden;
 }
@@ -91,39 +82,39 @@ input:checked + .check{
   transition:.4s;
 }
 
-.bunny{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  font-size:60px;
-  transition:.3s;
-}
-
-.bunny.happy{
-  transform:scale(1.1);
-}
-
 .reward{
-  opacity:.3;
   text-align:center;
-  padding:12px;
-  border:2px dashed #f3a4bd;
-  border-radius:16px;
+  padding:14px;
+  border-radius:18px;
+  border:2px dashed #f3a6bb;
+  opacity:.3;
 }
 
 .reward.unlocked{
   opacity:1;
 }
 
+.bunny{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  font-size:64px;
+  transition:.3s;
+}
+
+.bunny.happy{
+  transform:scale(1.15) rotate(-3deg);
+}
+
 button{
-  background:none;
   border:none;
-  font-size:1.2em;
+  background:none;
+  font-size:1.1em;
   cursor:pointer;
 }
 
-.history{
-  font-size:.9em;
+.history li{
+  font-size:.85em;
 }
 </style>
 </head>
@@ -131,82 +122,22 @@ button{
 <body>
 <div class="app">
 
-<header>🌸 Mi Jueguito de Hábitos 💗</header>
+<header>🌸 Mi Jueguito de Hábitos 🐰</header>
+
+<div class="card" id="habitList"></div>
 
 <div class="card">
-<h2>☀️ Rutina Diaria</h2>
-
-<div class="task">
-<label>Rutina Matutina + Postura</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="task">
-<label>Limpieza Ligera del Hogar</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="task">
-<label>Aprender 10 Términos Médicos</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="task">
-<label>Aprender 10 Palabras en Inglés</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="task">
-<label>Leer Guías de Conducción</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="progress"><div class="fill"></div></div>
-</div>
-
-<div class="card">
-<h2>🌙 Rutina Nocturna</h2>
-
-<div class="task">
-<label>Once Familiar</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="task">
-<label>Lavar y Despejar Cocina</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="task">
-<label>Repaso Fisio / Química</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
-<div class="task">
-<label>Cepillado Nocturno</label>
-<input type="checkbox" data-task>
-<span class="check"></span>
-</div>
-
 <div class="progress"><div class="fill"></div></div>
 </div>
 
 <div class="card reward" id="reward">
-💖 Recompensa de Doramas<br>
-<small>Se desbloquea al 80%</small>
+🎀 Recompensa Doramas<br>
+<small>Se desbloquea con 80%</small>
 </div>
 
 <div class="card history">
 <h2>📅 Historial</h2>
-<ul id="historyList"></ul>
+<ul id="history"></ul>
 </div>
 
 <button id="reset">💔 Reiniciar día</button>
@@ -216,80 +147,137 @@ button{
 <div class="bunny" id="bunny">🐰</div>
 
 <script>
-const tasks = document.querySelectorAll('[data-task]');
-const fills = document.querySelectorAll('.fill');
-const bunny = document.getElementById('bunny');
-const reward = document.getElementById('reward');
-const historyList = document.getElementById('historyList');
+// ====== DATOS ======
+const HABITOS = [
+  {
+    id:"agua1",
+    nombre:"Tomar agua (1/4)",
+    desc:"Un vaso grande apenas empezar la mañana.",
+    diario:true
+  },
+  {
+    id:"agua2",
+    nombre:"Tomar agua (2/4)",
+    desc:"Segundo vaso grande antes de almorzar.",
+    diario:true
+  },
+  {
+    id:"agua3",
+    nombre:"Tomar agua (3/4)",
+    desc:"Otro vaso por la tarde.",
+    diario:true
+  },
+  {
+    id:"agua4",
+    nombre:"Tomar agua (4/4)",
+    desc:"Último vaso para completar 2L.",
+    diario:true
+  },
+  {
+    id:"rutina_manana",
+    nombre:"Rutina matutina y orden",
+    desc:"Levantarte, hacer la cama, ordenar, asearte, vestirte y peinarte.",
+    diario:true
+  },
+  {
+    id:"dientes_manana",
+    nombre:"Cepillado + lengua (mañana)",
+    desc:"Cepillar dientes y lengua al despertar.",
+    diario:true
+  }
+];
 
+// ====== ESTADO ======
 const today = new Date().toLocaleDateString();
+const list = document.getElementById("habitList");
+const fill = document.querySelector(".fill");
+const bunny = document.getElementById("bunny");
+const reward = document.getElementById("reward");
 
-function save(){
-  const state=[...tasks].map(t=>t.checked);
-  localStorage.setItem('state',JSON.stringify(state));
-  localStorage.setItem('date',today);
+function loadState(){
+  if(localStorage.getItem("date") !== today){
+    saveHistory();
+    localStorage.removeItem("state");
+  }
+  const state = JSON.parse(localStorage.getItem("state")||"{}");
+  return state;
 }
 
-function load(){
-  if(localStorage.getItem('date')!==today){
-    recordDay();
-    localStorage.removeItem('state');
-  }
-  const state=JSON.parse(localStorage.getItem('state')||'[]');
-  tasks.forEach((t,i)=>t.checked=state[i]||false);
+function saveState(state){
+  localStorage.setItem("state", JSON.stringify(state));
+  localStorage.setItem("date", today);
+}
+
+// ====== RENDER ======
+function render(){
+  const state = loadState();
+  list.innerHTML = "<h2>☀️ Hábitos diarios</h2>";
+
+  HABITOS.forEach(h=>{
+    const checked = state[h.id] || false;
+    list.innerHTML += `
+      <label class="task">
+        <input type="checkbox" ${checked?"checked":""} data-id="${h.id}">
+        <span>${h.nombre}<small>${h.desc}</small></span>
+      </label>
+    `;
+  });
+
   update();
 }
 
+// ====== PROGRESO ======
 function update(){
-  const done=[...tasks].filter(t=>t.checked).length;
-  const total=tasks.length;
-  const percent=Math.round(done/total*100);
+  const checks = document.querySelectorAll("input[type=checkbox]");
+  const done = [...checks].filter(c=>c.checked).length;
+  const percent = Math.round(done/checks.length*100);
+  fill.style.width = percent+"%";
 
-  fills.forEach(f=>f.style.width=percent+'%');
-
-  if(percent>=80) reward.classList.add('unlocked');
-  else reward.classList.remove('unlocked');
+  if(percent>=80) reward.classList.add("unlocked");
+  else reward.classList.remove("unlocked");
 }
 
-function recordDay(){
-  const prev=JSON.parse(localStorage.getItem('history')||'[]');
-  const checked=[...tasks].filter(t=>t.checked).length;
-  if(checked>0){
-    prev.push({date:localStorage.getItem('date'),percent:Math.round(checked/tasks.length*100)});
-    localStorage.setItem('history',JSON.stringify(prev));
+// ====== HISTORIAL ======
+function saveHistory(){
+  const prev = JSON.parse(localStorage.getItem("history")||"[]");
+  const state = JSON.parse(localStorage.getItem("state")||"{}");
+  const total = HABITOS.length;
+  const done = Object.values(state).filter(v=>v).length;
+  if(done>0){
+    prev.push({date:localStorage.getItem("date"),percent:Math.round(done/total*100)});
+    localStorage.setItem("history",JSON.stringify(prev));
   }
 }
 
-tasks.forEach(t=>{
-  t.addEventListener('change',()=>{
-    bunny.classList.add('happy');
-    setTimeout(()=>bunny.classList.remove('happy'),400);
-    save();update();
-  });
+function loadHistory(){
+  const h = JSON.parse(localStorage.getItem("history")||"[]");
+  document.getElementById("history").innerHTML =
+    h.map(d=>`<li>${d.date} — ${d.percent}%</li>`).join("");
+}
+
+// ====== EVENTOS ======
+document.addEventListener("change",e=>{
+  if(e.target.matches("input[type=checkbox]")){
+    const state = loadState();
+    state[e.target.dataset.id] = e.target.checked;
+    saveState(state);
+    bunny.classList.add("happy");
+    setTimeout(()=>bunny.classList.remove("happy"),300);
+    update();
+  }
 });
 
-document.getElementById('reset').onclick=()=>{
-  if(confirm('¿Reiniciar el progreso de hoy?')){
-    recordDay();
-    localStorage.removeItem('state');
-    update();
-    tasks.forEach(t=>t.checked=false);
+document.getElementById("reset").onclick=()=>{
+  if(confirm("¿Reiniciar solo el día de hoy?")){
+    saveHistory();
+    localStorage.removeItem("state");
+    render();
   }
 };
 
-function loadHistory(){
-  const h=JSON.parse(localStorage.getItem('history')||'[]');
-  historyList.innerHTML='';
-  h.forEach(d=>{
-    const li=document.createElement('li');
-    li.textContent=`${d.date} — ${d.percent}%`;
-    historyList.appendChild(li);
-  });
-}
-
-load();
+// ====== INIT ======
+render();
 loadHistory();
 </script>
-
 </body>
 </html>
