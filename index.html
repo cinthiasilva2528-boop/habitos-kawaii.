@@ -10,11 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --fondo-claro:#FDEBF7; /* El fondo más claro del celular */
-  --fondo-medio:#FFCCE5; /* Fondo del contenedor principal */
-  --caja-blanca:#FFFFFF;
-  --rosa-principal:#FF8BC6; /* Rosa fuerte para títulos y acentos */
-  --rosa-suave:#FFBEDA; /* Rosa suave para el relleno de la barra */
+  --fondo-general:#FFCCE5; /* Fondo más oscuro */
+  --fondo-caja:#FFFFFF; /* Fondo de las secciones */
+  --rosa-fuerte:#FF8BC6; /* Rosa oscuro de títulos y checks */
+  --rosa-suave:#FFBEDA; /* Rosa suave de la barra */
   --texto-oscuro:#604B5F; 
   --sombra-suave:rgba(255,173,220,0.4);
 }
@@ -22,19 +21,10 @@
 body{
   margin:0;
   font-family:'Comfortaa',cursive;
-  background:var(--fondo-medio); 
+  background:var(--fondo-general); 
   color:var(--texto-oscuro);
   min-height:100vh;
-  padding-top:1px; /* Espacio para el header fijo */
-}
-
-h1{
-  text-align:center;
-  margin:20px 0 15px;
-  font-weight:700;
-  font-size:1.8rem;
-  color:var(--rosa-principal);
-  text-shadow:1px 1px 2px var(--sombra-suave);
+  padding-top:1px;
 }
 
 .header-title {
@@ -46,11 +36,15 @@ h1{
 
 .header-title h1 {
     margin: 0;
+    font-weight:700;
+    font-size:1.8rem;
+    color:var(--rosa-fuerte);
+    text-shadow:1px 1px 2px var(--sombra-suave);
 }
 
 .header-title span {
     font-size: 1.5rem;
-    color: var(--rosa-principal);
+    color: var(--rosa-fuerte);
     margin: 0 5px;
 }
 
@@ -61,8 +55,8 @@ h1{
 }
 
 .section{
-  background:var(--caja-blanca);
-  border-radius:30px; /* Bordes muy redondeados */
+  background:var(--fondo-caja);
+  border-radius:30px; 
   padding:20px;
   margin-bottom:20px;
   box-shadow:0 8px 20px var(--sombra-suave);
@@ -70,7 +64,7 @@ h1{
 
 h2{
   font-size:1.4rem;
-  color:var(--rosa-principal);
+  color:var(--rosa-fuerte);
   padding-bottom:10px;
   margin-top:0;
   display:flex;
@@ -79,10 +73,11 @@ h2{
 }
 h2 span { font-size: 1.8rem; }
 
+/* ESTILO DE TAREAS */
 .task{
   margin-bottom:12px;
   padding-bottom:8px;
-  border-bottom:1px solid var(--fondo-claro);
+  border-bottom:1px solid #FDEBF7;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -92,157 +87,110 @@ h2 span { font-size: 1.8rem; }
   border-bottom:none;
 }
 
-.task-content {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-}
-
 .task label{
   display:flex;
   align-items:center;
   cursor:pointer;
   font-size:1rem;
   font-weight:500;
+  flex-grow:1;
 }
 
+/* CASILLA CUADRADA INVISIBLE */
 .task input[type="checkbox"]{
-  appearance:none;
-  width:28px;
-  height:28px;
-  border:2px solid var(--rosa-principal);
-  border-radius:8px;
-  margin-right:12px;
-  cursor:pointer;
-  flex-shrink: 0;
-  position:relative;
-  transition:all .3s ease;
+    appearance: none;
+    width: 0; /* Lo hacemos invisible */
+    height: 0;
+    margin: 0;
 }
 
-.task input:checked{
-  background-color:var(--rosa-principal);
-  border-color:var(--rosa-principal);
-}
-
-.task input:checked::after{
-  content:'✓';
-  color:var(--caja-blanca);
-  font-size:18px;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  line-height:1;
-}
-
-/* Corazón de la derecha */
+/* EL CORAZÓN DE LA DERECHA (LA CASILLA VISIBLE) */
 .heart-check {
     width: 28px;
     height: 28px;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFBEDA' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center center;
     background-size: contain;
     margin-left: 10px;
-    opacity: 0.8;
+    opacity: 1; /* Siempre visible */
+    cursor: pointer;
+    border: 2px solid var(--rosa-suave); /* Borde rosa claro */
+    border-radius: 6px;
+    padding: 2px;
+    transition: all .3s ease;
 }
 
-.task input:checked + span + .heart-check {
+/* ESTADO MARCADO */
+.task input:checked ~ .heart-check {
     opacity: 1;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF8BC6' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center center;
     background-size: contain;
-    animation: heartPop .3s ease;
+    border-color: var(--rosa-fuerte);
+    transform: scale(1.05);
 }
 
-@keyframes heartPop {
-    0% { transform: scale(0.8); }
-    100% { transform: scale(1); }
+.task input:checked + span {
+    text-decoration: line-through;
+    opacity: 0.7;
 }
 
-.desc{
-  margin-top:8px;
-  margin-left:45px;
-  font-size:.85rem;
-  color:var(--texto-oscuro);
-  background:var(--fondo-claro);
-  padding:6px 10px;
-  border-radius:15px;
-  display:none;
-}
-
-.task label:hover + .desc{
-  display:block;
-}
-
-/* BARRA DE PROGRESO CON DISEÑO Y CONEJITO */
+/* BARRA DE PROGRESO IDÉNTICA */
 .progress-bar-container{
-    background:var(--fondo-claro);
+    background:var(--rosa-suave);
     border-radius:20px;
-    height:45px; 
+    height:50px; 
     margin:25px 0 10px;
     display:flex;
     align-items:center;
     position:relative;
     box-shadow:inset 0 1px 4px rgba(0,0,0,0.1);
-    padding:5px;
+    padding-right: 60px; /* Espacio para el conejito */
 }
+
 .progress-bar{
   flex-grow:1;
   background:#FFBEDA; 
-  border-radius:15px;
-  height:35px;
-  position:relative;
+  border-radius:20px 0 0 20px;
+  height:50px;
+  position:absolute;
+  top:0;
+  left:0;
   overflow:hidden;
 }
 
 .progress-fill{
   height:100%;
   width:0%;
-  background:var(--rosa-suave);
-  border-radius:15px;
+  background:linear-gradient(90deg, #FFBEDA 0%, #FF8BC6 100%); /* Degradado como en la imagen */
   transition:width .6s cubic-bezier(0.25, 1, 0.5, 1);
   position:absolute;
   top:0;
   left:0;
 }
 
-.progress-dots {
+/* Elementos decorativos de la barra */
+.progress-deco {
     position: absolute;
     top: 50%;
-    left: 10px;
+    left: 20px;
     transform: translateY(-50%);
     z-index: 5;
-    display: flex;
-    gap: 8px;
+    color: white;
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    opacity: 0.8;
 }
 
-.progress-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5); /* Puntos blancos en la barra */
-    transition: background-color 0.3s;
-}
-
-.bunny-container {
-    width: 80px;
-    height: 80px;
-    background: var(--caja-blanca);
-    border-radius: 50%;
-    position: absolute;
-    right: 0px; 
+.bunny-emoji{
+    position:absolute;
+    right: 5px; 
     top: 50%;
     transform: translateY(-50%);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 40px; 
+    transition: transform .3s ease;
     z-index: 20;
+    line-height: 1;
 }
 
-.bunny-emoji {
-  font-size:35px; 
-  transition:transform .3s ease;
-  z-index:21;
-}
 
 .reward{
   text-align:center;
@@ -250,19 +198,18 @@ h2 span { font-size: 1.8rem; }
   border-radius:20px;
   font-size:1.1rem;
   margin-top:20px;
-  border:3px dashed var(--rosa-principal);
+  border:3px dashed var(--rosa-fuerte);
 }
 
 .locked{
     opacity:.6;
-    background:var(--fondo-claro);
-    color:var(--texto-oscuro);
+    background:var(--fondo-caja);
 }
 .unlocked{
-    background:var(--rosa-principal);
-    color:var(--caja-blanca);
+    background:var(--rosa-fuerte);
+    color:white;
     font-weight:600;
-    border-color:var(--rosa-principal);
+    border-color:var(--rosa-fuerte);
     animation:pulse 1.5s infinite alternate;
 }
 
@@ -277,16 +224,12 @@ h2 span { font-size: 1.8rem; }
   right:20px;
   border:none;
   border-radius:50%;
-  background:var(--caja-blanca);
+  background:var(--fondo-caja);
   padding:10px;
   font-size:22px;
   box-shadow:0 4px 10px rgba(0,0,0,.15);
   cursor:pointer;
   z-index:100;
-}
-
-.reset-btn:active{
-  transform:scale(0.95);
 }
 </style>
 </head>
@@ -306,78 +249,47 @@ h2 span { font-size: 1.8rem; }
 <h2><span>☀️</span> Rutina Diaria</h2>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Rutina Matutina + Postura</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Rutina Matutina + Postura</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Limpieza Ligera del Hogar</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Limpieza Ligera del Hogar</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Aprender 10 Términos Médicos</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Aprender 10 Términos Médicos</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Aprender 10 Palabras en Inglés</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Aprender 10 Palabras en Inglés</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Leer Guías de Conducción</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Leer Guías de Conducción</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Cocinar Almuerzo</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Cocinar Almuerzo</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Lavar Losa Inmediato</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Lavar Losa Inmediato</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Ducha Diaria</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Ducha Diaria</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Estudio Fuerte (Fisio / Química)</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Estudio Fuerte (Fisio / Química)</span><div class="heart-check"></div></label>
 </div>
 
 <div class="progress-bar-container">
     <div class="progress-bar">
         <div class="progress-fill" id="progress"></div>
-        <div class="progress-dots" id="dots">
-            <div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot"></div>
-        </div>
+        <div class="progress-deco">PROGRESO DEL DÍA...</div>
     </div>
-    <div class="bunny-container">
-        <span class="bunny-emoji" id="bunny">🐰</span> 
-    </div>
+    <span class="bunny-emoji" id="bunny">🐰</span> 
 </div>
 </div>
 
@@ -385,34 +297,106 @@ h2 span { font-size: 1.8rem; }
 <h2><span>🌙</span> Rutina Nocturna</h2>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Once Familiar</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Once Familiar</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Lavar y Despejar Cocina</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Lavar y Despejar Cocina</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Repaso Fisio / Química</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Repaso Fisio / Química</span><div class="heart-check"></div></label>
 </div>
 
 <div class="task">
-<div class="task-content">
-<label><input type="checkbox" class="check"> <span>Cepillado Nocturno</span></label>
-</div>
-<div class="heart-check"></div>
+<label><input type="checkbox" class="check"> <span>Cepillado Nocturno</span><div class="heart-check"></div></label>
 </div>
 </div>
 
 <div class="section reward locked" id="reward">
-🎬 RECOMPENSA DE DORAMAS<br>
-Se desbloquea
+🎬 DORAMAS DESBLOQUEADOS 🥳<br>
+Se desbloquea al 80%
+</div>
+
+</div>
+
+<script>
+const checks=document.querySelectorAll('.check');
+const progress=document.getElementById('progress');
+const reward=document.getElementById('reward');
+const reset=document.getElementById('reset');
+const bunny=document.getElementById('bunny'); 
+
+const KEY='tasks',DATE='date';
+
+function today(){return new Date().toISOString().split('T')[0];}
+
+function load(){
+ if(localStorage.getItem(DATE)!==today()){
+   localStorage.setItem(KEY,JSON.stringify([]));
+   localStorage.setItem(DATE,today());
+ }
+ const data=JSON.parse(localStorage.getItem(KEY))||[];
+ checks.forEach((c,i)=>{
+    c.checked=data[i]||false;
+ });
+ update();
+}
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify([...checks].map(c=>c.checked)));
+}
+
+function update(){
+ const total=checks.length;
+ const done=[...checks].filter(c=>c.checked).length;
+ const percent=Math.round(done/total*100);
+ 
+ // El progreso debe ser limitado al 100% visible
+ progress.style.width=Math.min(percent, 100) + '%';
+
+ // Cambiar la expresión del conejito
+ if (percent < 50) {
+    bunny.textContent = '🐰';
+ } else if (percent < 80) {
+    bunny.textContent = '😊'; 
+ } else {
+    bunny.textContent = '💖'; 
+    bunny.style.transform = 'translateY(-50%) scale(1.1)'; 
+ }
+
+ if(percent>=80){
+   reward.classList.remove('locked');
+   reward.classList.add('unlocked');
+   reward.innerHTML='🎉 DORAMAS DESBLOQUEADOS 🥳';
+ }else{
+   reward.classList.add('locked');
+   reward.classList.remove('unlocked');
+   reward.innerHTML='🎬 RECOMPENSA DE DORAMAS<br>Se desbloquea al 80%';
+ }
+ save();
+}
+
+// Escucha el evento change en todos los checkboxes
+checks.forEach(c=>{
+    c.onchange=update;
+});
+
+reset.onclick=()=>{
+ if(confirm('¿Reiniciar progreso del día?')){
+   checks.forEach(c=>{
+        c.checked=false;
+   });
+   update();
+ }
+};
+
+load();
+
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
+</body>
+</html>
